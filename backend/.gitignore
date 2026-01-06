@@ -1,6 +1,0 @@
-.env
-node_modules
-dist
-dev.db
-storage/*.tmp
-coverage
