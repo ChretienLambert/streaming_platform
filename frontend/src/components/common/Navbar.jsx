@@ -63,6 +63,9 @@ const Navbar = () => {
             <Link to="/music" className="hover:text-red-500 transition">
               Music
             </Link>
+            <Link to="/about" className="hover:text-red-500 transition">
+              About
+            </Link>
 
             {/* Desktop Search Bar */}
             <form onSubmit={handleSearch} className="relative">
@@ -183,6 +186,13 @@ const Navbar = () => {
               className="block hover:text-red-500 transition py-2"
             >
               Music
+            </Link>
+            <Link
+              to="/about"
+              onClick={closeMobileMenu}
+              className="block hover:text-red-500 transition py-2"
+            >
+              About
             </Link>
 
             {user ? (

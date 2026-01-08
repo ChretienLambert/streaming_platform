@@ -10,6 +10,7 @@ import VideoDetail from '../pages/VideoDetail';
 import MusicDetail from '../pages/MusicDetail';
 import Search from '../pages/Search';
 import Subscription from '../pages/Subscription';
+import About from '../pages/About';
 import AdminLayout from '../components/admin/AdminLayout';
 import AdminDashboard from '../pages/AdminDashboard';
 import ManageContent from '../components/admin/ManageContent';
@@ -26,19 +27,20 @@ const PublicRoutes = () => {
         <Route path="/videos" element={<Videos />} />
         <Route path="/music" element={<Music />} />
         <Route path="/video/:id" element={<VideoDetail />} />
-<Route path="/music/:id" element={<MusicDetail />} />
-<Route path="/search" element={<Search />} />
-<Route path="/subscription" element={<Subscription />} />
+        <Route path="/music/:id" element={<MusicDetail />} />
+        <Route path="/search" element={<Search />} />
+        <Route path="/subscription" element={<Subscription />} />
+        <Route path="/about" element={<About />} />
         {/* Add more public routes here later */}
       </Route>
       <Route element={<ProtectedRoute />}>
-      <Route path="/admin" element={<AdminLayout />}>
-  <Route index element={<AdminDashboard />} />
-  <Route path="videos" element={<ManageContent type="video" />} />
-<Route path="music" element={<ManageContent type="music" />} />
-<Route path="users" element={<UserManagement />} />
-  </Route>
-</Route>
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route index element={<AdminDashboard />} />
+          <Route path="videos" element={<ManageContent type="video" />} />
+          <Route path="music" element={<ManageContent type="music" />} />
+          <Route path="users" element={<UserManagement />} />
+        </Route>
+      </Route>
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

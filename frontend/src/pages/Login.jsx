@@ -26,11 +26,14 @@ const Login = () => {
     }
 
     setLoading(true);
-    // Mock successful login
-    setTimeout(() => {
-      login(email, email.split('@')[0]);
+    try {
+      await login(email, password);
       navigate('/');
-    }, 1000);
+    } catch (error) {
+      setError(error.message || 'Login failed');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

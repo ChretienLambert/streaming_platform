@@ -1,25 +1,36 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Search } from 'lucide-react';
 import Card from '../components/common/Card';
+import api from '../services/api.js';
 
 const categories = ["All", "Movies", "TV Shows", "New Releases", "Action", "Drama", "Comedy", "Sci-Fi"];
-
-const mockVideos = [
-  { id: 1, title: "Dune: Part Two", year: 2025, duration: "2h 46m", image: "https://image.tmdb.org/t/p/w500/8b8R8l88Qje9dn9OE8PY05Nxl1X.jpg", isAvailable: true },
-  { id: 2, title: "Oppenheimer", year: 2023, duration: "3h", image: "https://image.tmdb.org/t/p/w500/rzRb63TldOKdKykvoWg6XC0smG9.jpg", isAvailable: true },
-  { id: 3, title: "A Minecraft Movie", year: 2025, duration: "1h 45m", image: "https://i.ebayimg.com/images/g/M9wAAOSwtWpnwrJR/s-l1600.jpg", isAvailable: false },
-  { id: 4, title: "Predator: Badlands", year: 2025, duration: "1h 55m", image: "https://i.etsystatic.com/43906454/r/il/2c7318/7434310859/il_fullxfull.7434310859_82e7.jpg", isAvailable: true },
-  { id: 5, title: "The Legend of Ochi", year: 2025, duration: "1h 38m", image: "https://i.etsystatic.com/51274439/r/il/54af24/6745457937/il_fullxfull.6745457937_ruj2.jpg", isAvailable: false },
-  { id: 6, title: "Frankenstein Reimagined", year: 2025, duration: "2h 10m", image: "https://cdn.mos.cms.futurecdn.net/nW8hdHunSWbuEEzjNLfuZR.jpg", isAvailable: true },
-  // Add more as needed
-];
 
 const Videos = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
+  const [videos, setVideos] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
-  const filteredVideos = mockVideos.filter(video =>
-    (selectedCategory === "All" || video.genre === selectedCategory) &&
+  useEffect(() => {
+    fetchVideos();
+  }, []);
+
+  const fetchVideos = async () => {
+    try {
+      setLoading(true);
+      const response = await api.getVideos();
+      setVideos(response.videos || []);
+    } catch (error) {
+      setError('Failed to load videos');
+      console.error('Videos fetch error:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const filteredVideos = videos.filter(video =>
+    (selectedCategory === "All" || video.category === selectedCategory.toLowerCase()) &&
     video.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
@@ -88,11 +99,11 @@ const Videos = () => {
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
               {filteredVideos.map((video) => (
                 <Card
-                  key={video.id}
-                  id={video.id}
+                  key={video._id}
+                  id={video._id}
                   title={video.title}
-                  subtitle={`${video.year} • ${video.duration}`}
-                  image={video.image}
+                  subtitle={`${video.releaseYear} • ${Math.floor(video.duration / 60)}h ${video.duration % 60}m`}
+                  image={video.thumbnailUrl}
                   type="video"
                   aspect="portrait"
                 />

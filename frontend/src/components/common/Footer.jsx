@@ -1,15 +1,53 @@
+import { Link } from 'react-router-dom';
+import { Mail, Twitter, Facebook, Instagram, Youtube, Heart, ArrowRight } from 'lucide-react';
+
 const Footer = () => {
   return (
-    <footer className="bg-black border-t border-gray-800 py-12 mt-auto">
+    <footer className="bg-gradient-to-b from-gray-900 via-black to-gray-900 border-t border-gray-800 py-16 mt-auto">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-10">
+        {/* Newsletter Section */}
+        <div className="bg-gradient-to-r from-red-900/50 via-purple-900/50 to-pink-900/50 rounded-2xl p-8 mb-12 border border-gray-700">
+          <div className="grid md:grid-cols-2 gap-8 items-center">
+            <div>
+              <h3 className="text-2xl font-bold mb-4">
+                <span className="bg-gradient-to-r from-red-500 to-pink-500 bg-clip-text text-transparent">
+                  Stay Connected
+                </span>
+              </h3>
+              <p className="text-gray-300 leading-relaxed">
+                Get the latest updates on new releases, exclusive content, and special offers delivered to your inbox.
+              </p>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <input
+                type="email"
+                placeholder="Your email"
+                className="flex-1 px-6 py-4 bg-gray-800/50 backdrop-blur-sm border border-gray-600 rounded-full focus:outline-none focus:ring-4 focus:ring-red-600/50 transition-all"
+              />
+              <button className="px-8 py-4 bg-gradient-to-r from-red-600 to-purple-600 rounded-full font-semibold hover:from-red-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-300 shadow-lg flex items-center gap-2">
+                Subscribe
+                <ArrowRight className="w-5 h-5" />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           {/* Column 1 - Brand */}
           <div>
-            <h2 className="text-3xl font-bold text-red-600 mb-6">StreamHub</h2>
-            <p className="text-gray-400 leading-relaxed">
+            <h2 className="text-3xl font-bold text-red-600 mb-6 flex items-center gap-2">
+              StreamHub
+              <Heart className="w-6 h-6 text-red-500" />
+            </h2>
+            <p className="text-gray-400 leading-relaxed mb-6">
               Your all-in-one destination for unlimited videos and music streaming. 
               Enjoy premium entertainment anytime, anywhere.
             </p>
+            <div className="flex gap-3">
+              <div className="w-12 h-12 bg-gradient-to-r from-red-600 to-purple-600 rounded-xl flex items-center justify-center">
+                <span className="text-white font-bold">SH</span>
+              </div>
+            </div>
           </div>
 
           {/* Column 2 - Quick Links */}
@@ -17,24 +55,29 @@ const Footer = () => {
             <h3 className="text-xl font-semibold mb-6 text-white">Quick Links</h3>
             <ul className="space-y-4">
               <li>
-                <a href="/" className="text-gray-400 hover:text-red-500 transition">
-                  Home
-                </a>
+                <Link to="/" className="text-gray-400 hover:text-red-500 transition flex items-center gap-2">
+                  <span>Home</span>
+                </Link>
               </li>
               <li>
-                <a href="/videos" className="text-gray-400 hover:text-red-500 transition">
-                  Videos
-                </a>
+                <Link to="/videos" className="text-gray-400 hover:text-red-500 transition flex items-center gap-2">
+                  <span>Videos</span>
+                </Link>
               </li>
               <li>
-                <a href="/music" className="text-gray-400 hover:text-red-500 transition">
-                  Music
-                </a>
+                <Link to="/music" className="text-gray-400 hover:text-red-500 transition flex items-center gap-2">
+                  <span>Music</span>
+                </Link>
               </li>
               <li>
-                <a href="/subscription" className="text-gray-400 hover:text-red-500 transition">
-                  Plans & Pricing
-                </a>
+                <Link to="/about" className="text-gray-400 hover:text-red-500 transition flex items-center gap-2">
+                  <span>About</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/subscription" className="text-gray-400 hover:text-red-500 transition flex items-center gap-2">
+                  <span>Plans & Pricing</span>
+                </Link>
               </li>
             </ul>
           </div>
@@ -44,71 +87,76 @@ const Footer = () => {
             <h3 className="text-xl font-semibold mb-6 text-white">Support</h3>
             <ul className="space-y-4">
               <li>
-                <a href="#" className="text-gray-400 hover:text-red-500 transition">
-                  Help Center
+                <a href="#" className="text-gray-400 hover:text-red-500 transition flex items-center gap-2">
+                  <span>Help Center</span>
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-red-500 transition">
-                  Contact Us
+                <a href="#" className="text-gray-400 hover:text-red-500 transition flex items-center gap-2">
+                  <span>Contact Us</span>
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-red-500 transition">
-                  Terms of Service
+                <a href="#" className="text-gray-400 hover:text-red-500 transition flex items-center gap-2">
+                  <span>Terms of Service</span>
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-red-500 transition">
-                  Privacy Policy
+                <a href="#" className="text-gray-400 hover:text-red-500 transition flex items-center gap-2">
+                  <span>Privacy Policy</span>
                 </a>
               </li>
             </ul>
           </div>
 
-          {/* Column 4 - Social & Newsletter */}
+          {/* Column 4 - Social */}
           <div>
-            <h3 className="text-xl font-semibold mb-6 text-white">Stay Connected</h3>
-            <div className="flex space-x-8 mb-8">
-              {/* X (Twitter) */}
-              <a href="#" className="text-gray-400 hover:text-white transition transform hover:scale-110">
-                <img src="https://graphically.io/wp-content/uploads/2025/11/2.jpg" alt="X (Twitter)" className="w-8 h-8" />
+            <h3 className="text-xl font-semibold mb-6 text-white">Follow Us</h3>
+            <div className="flex gap-4 mb-8">
+              <a href="#" className="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center hover:bg-red-600 transform hover:scale-110 transition-all duration-300">
+                <Twitter className="w-6 h-6 text-white" />
               </a>
-              {/* Facebook */}
-              <a href="#" className="text-gray-400 hover:text-white transition transform hover:scale-110">
-                <img src="https://static.vecteezy.com/system/resources/thumbnails/008/385/720/small/facebook-social-media-icon-logo-symbol-design-illustration-free-vector.jpg" alt="Facebook" className="w-8 h-8" />
+              <a href="#" className="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center hover:bg-red-600 transform hover:scale-110 transition-all duration-300">
+                <Facebook className="w-6 h-6 text-white" />
               </a>
-              {/* Instagram */}
-              <a href="#" className="text-gray-400 hover:text-white transition transform hover:scale-110">
-                <img src="https://cdn.vectorstock.com/i/500p/52/12/instagram-icon-symbol-vector-42845212.jpg" alt="Instagram" className="w-8 h-8" />
+              <a href="#" className="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center hover:bg-red-600 transform hover:scale-110 transition-all duration-300">
+                <Instagram className="w-6 h-6 text-white" />
               </a>
-              {/* YouTube */}
-              <a href="#" className="text-gray-400 hover:text-white transition transform hover:scale-110">
-                <img src="https://www.logo.wine/a/logo/YouTube/YouTube-Icon-White-Dark-Background-Logo.wine.svg" alt="YouTube" className="w-8 h-8" />
+              <a href="#" className="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center hover:bg-red-600 transform hover:scale-110 transition-all duration-300">
+                <Youtube className="w-6 h-6 text-white" />
               </a>
             </div>
-            <p className="text-gray-400 mb-4">Subscribe for updates</p>
-            <div className="flex">
-              <input
-                type="email"
-                placeholder="Your email"
-                className="flex-1 px-4 py-3 bg-gray-800 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-red-600"
-              />
-              <button className="px-6 py-3 bg-red-600 rounded-r-lg hover:bg-red-700 transition">
-                Subscribe
-              </button>
+            <div className="bg-gray-800/50 rounded-xl p-6">
+              <p className="text-sm text-gray-400 mb-3">Need help?</p>
+              <a href="#" className="text-red-400 hover:text-red-300 font-semibold text-sm">
+                Contact Support →
+              </a>
             </div>
           </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-gray-800 pt-8 text-center">
-          <p className="text-gray-500">
-            © {new Date().getFullYear()} StreamHub. All rights reserved.
-          </p>
-          <p className="text-sm text-gray-600 mt-2">
-            Made with ❤️ for the ultimate streaming experience
-          </p>
+        <div className="border-t border-gray-800 pt-8">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <div>
+              <p className="text-gray-500">
+                &copy; {new Date().getFullYear()} StreamHub. All rights reserved.
+              </p>
+              <p className="text-sm text-gray-600 mt-2 flex items-center gap-2">
+                Made with 
+                <Heart className="w-4 h-4 text-red-500" />
+                for the ultimate streaming experience
+              </p>
+            </div>
+            <div className="flex gap-6">
+              <a href="#" className="text-gray-400 hover:text-white transition">
+                App Store
+              </a>
+              <a href="#" className="text-gray-400 hover:text-white transition">
+                Google Play
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </footer>

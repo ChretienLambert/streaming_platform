@@ -37,10 +37,14 @@ const Signup = () => {
     }
 
     setLoading(true);
-    setTimeout(() => {
-      signup(email, name);
+    try {
+      await signup(name, email, password);
       navigate('/');
-    }, 1000);
+    } catch (error) {
+      setError(error.message || 'Signup failed');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
+import api from '../services/api.js';
 
 const AuthContext = createContext();
 
@@ -9,27 +10,67 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     // Check if user is logged in on app load
     const storedUser = localStorage.getItem('streamhub_user');
-    if (storedUser) {
+    const storedToken = localStorage.getItem('authToken');
+    
+    if (storedUser && storedToken) {
       setUser(JSON.parse(storedUser));
+      api.setToken(storedToken);
     }
     setLoading(false);
   }, []);
 
-  const login = (email, name = 'User') => {
-    const userData = { email, name, isLoggedIn: true };
-    setUser(userData);
-    localStorage.setItem('streamhub_user', JSON.stringify(userData));
+  const login = async (email, password) => {
+    try {
+      const response = await api.login({ email, password });
+      const userData = {
+        id: response.user.id,
+        name: response.user.name,
+        email: response.user.email,
+        role: response.user.role,
+        subscription: response.user.subscription,
+        isLoggedIn: true
+      };
+      
+      setUser(userData);
+      localStorage.setItem('streamhub_user', JSON.stringify(userData));
+      
+      return response;
+    } catch (error) {
+      throw error;
+    }
   };
 
-  const signup = (email, name) => {
-    const userData = { email, name, isLoggedIn: true };
-    setUser(userData);
-    localStorage.setItem('streamhub_user', JSON.stringify(userData));
+  const signup = async (name, email, password) => {
+    try {
+      const response = await api.register({ name, email, password });
+      const userData = {
+        id: response.user.id,
+        name: response.user.name,
+        email: response.user.email,
+        role: response.user.role,
+        subscription: response.user.subscription,
+        isLoggedIn: true
+      };
+      
+      setUser(userData);
+      localStorage.setItem('streamhub_user', JSON.stringify(userData));
+      
+      return response;
+    } catch (error) {
+      throw error;
+    }
   };
 
-  const logout = () => {
-    setUser(null);
-    localStorage.removeItem('streamhub_user');
+  const logout = async () => {
+    try {
+      await api.logout();
+    } catch (error) {
+      console.error('Logout error:', error);
+    } finally {
+      setUser(null);
+      localStorage.removeItem('streamhub_user');
+      api.setToken(null);
+    }
   };
 
   return (
